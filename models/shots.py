@@ -30,7 +30,7 @@ class Shot:
         bmps = map(imageio.imread, bmp_paths)
         bmps = map(lambda x: x.astype("int16"), bmps)  # prevent underflow
 
-        if len(bmps_paths) == 4:
+        if len(bmp_paths) == 4:
             (self.mot, self.data, self.beam, self.dark) = bmps
         else:
             (self.data, self.beam, self.dark) = bmps
