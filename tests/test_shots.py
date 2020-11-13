@@ -18,7 +18,7 @@ def cfg(request):
 def shot():
     """Create shot object."""
     path = "./tests/data/saturated/2019-07-26T162222"
-    bmp_paths = [f"{path}-{i}.bmp" for i in range(1, 4)]
+    bmp_paths = [f"{path}-{i}.bmp" for i in range(0, 4)]
     yield shots.Shot(name=path, bmp_paths=bmp_paths)
 
 
