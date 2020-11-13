@@ -13,7 +13,7 @@ cache:
 before_cache:
   - find /C/Python37/Lib/ -name '*.pyc' -delete
 script: python -m pytest --cache-clear tests
-before_deploy: pyinstaller --name AbsorptionImaging-$TRAVIS_TAG-win64 --onefile --noconsole __main__.py
+before_deploy: pyinstaller --name FluorescenceImaging-$TRAVIS_TAG-win64 --onefile --noconsole __main__.py
 deploy:
   provider: releases
   api_key:
