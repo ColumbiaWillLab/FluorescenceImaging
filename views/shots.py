@@ -18,7 +18,7 @@ class ShotList(ttk.Frame):
         super().__init__(master)
         self.pack(fill="both", expand=True)
 
-        kw["columns"] = ("atoms", "sigma_x", "sigma_y")
+        kw["columns"] = ("atoms", "mot", "sigma_x", "sigma_y")
         kw["selectmode"] = "extended"
         self.tree = ttk.Treeview(self, **kw)
         self.tree.pack(side="left", fill="both", expand=True)
@@ -28,13 +28,15 @@ class ShotList(ttk.Frame):
         vsb.pack(side="right", fill="y")
         self.tree.configure(yscrollcommand=vsb.set)
 
-        self.tree.column("#0", anchor="w", width=200)
+        self.tree.column("#0", anchor="w", width=150)
         self.tree.column("atoms", anchor="w", width=100, stretch=False)
-        self.tree.column("sigma_x", anchor="w", width=100, stretch=False)
-        self.tree.column("sigma_y", anchor="w", width=100, stretch=False)
+        self.tree.column("mot", anchor="w", width=100, stretch=False)
+        self.tree.column("sigma_x", anchor="w", width=75, stretch=False)
+        self.tree.column("sigma_y", anchor="w", width=75, stretch=False)
 
         self.tree.heading("#0", text="Shot")
         self.tree.heading("atoms", text="Atom Number")
+        self.tree.heading("mot", text="MOT")
         self.tree.heading("sigma_x", text="Std. Dev. X")
         self.tree.heading("sigma_y", text="Std. Dev. Y")
 
@@ -50,11 +52,14 @@ class ShotList(ttk.Frame):
             if shot.fit:
                 values = (
                     shot.atom_number,
+                    shot.mot_fluorescence,
                     shot.fit.best_values["sx"] * config.pixel_size,
                     shot.fit.best_values["sy"] * config.pixel_size,
                 )
             else:
-                values = (shot.atom_number,)
+                values = (shot.atom_number,
+                          shot.mot_fluorescence,
+                )
             self.tree.insert(
                 "",
                 "end",

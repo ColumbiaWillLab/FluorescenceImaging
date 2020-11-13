@@ -54,7 +54,7 @@ class ShotPresenter:
 
         # Saves fit params to log file
         cmnts = self.settings_view.get_comment()
-        logging.info("Updating logging.csv for shot %s with comment %s " % (name, cmnts))
+        logging.info("Updating logging.hdf5 for shot %s with comment %s " % (name, cmnts))
 
         # Checks if log file already exists, if not creates a new one
         with h5py.File(_output_log_path(name), "a") as logfile:
@@ -64,6 +64,7 @@ class ShotPresenter:
             lf.create_dataset("dark", data = shot.dark)
             lf.attrs['filename'] = str(name)
             lf.attrs['atom_number'] = shot.atom_number
+            lf.attrs['MOT%'] = shot.mot_fluorescence
 
             for label, value in config.logdict.items(): # Appends config snapshot
                 lf.attrs[label] = value

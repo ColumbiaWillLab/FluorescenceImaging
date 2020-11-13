@@ -24,7 +24,7 @@ class MainWindow(ttk.Frame):
         try:
             self.master.title(config.name)
         except:
-            self.master.title("Absorption Imaging")
+            self.master.title("Fluorescence Imaging")
         self.master.state("zoomed")
 
         super().__init__(self.master)

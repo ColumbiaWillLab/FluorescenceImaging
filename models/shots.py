@@ -30,7 +30,7 @@ class Shot:
         bmps = map(imageio.imread, bmp_paths)
         bmps = map(lambda x: x.astype("int16"), bmps)  # prevent underflow
 
-        (self.data, self.beam, self.dark) = bmps
+        (self.mot, self.data, self.beam, self.dark) = bmps
         self.shape = self.data.shape
         self.name = name
 
@@ -82,6 +82,12 @@ class Shot:
         np.clip(transmission, a_min=0, a_max=1, out=transmission)
 
         return transmission
+
+    @cachedproperty
+    def mot_fluorescence(self):
+        """Returns the summed pixel counts in the MOT picture normalized to a fixed value config.mot_count"""
+        shotcount = np.sum(self.mot)
+        return shotcount/config.mot_count
 
     @property
     def absorption(self):

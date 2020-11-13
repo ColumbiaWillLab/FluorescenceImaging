@@ -39,9 +39,8 @@ class FileWatcher(Observer):
                     all_paths[f"{name}-{idx}"] = path
 
         for name, num in shot_bmps.items():
-            if num == 6:  # Crude determination that all 3 images exist: 1 + 2 + 3
-                # If additional shot -0, ignores
-                paths = [all_paths[f"{name}-{num}"] for num in range(1, 4)]
+            if num == 6:  # Crude determination that all 4 images exist: 0 + 1 + 2 + 3
+                paths = [all_paths[f"{name}-{num}"] for num in range(0, 4)]
                 try:
                     self.process_shot(name, paths)
                     _move_raw_images(paths, failed=False)

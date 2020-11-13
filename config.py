@@ -81,6 +81,11 @@ class Config(configparser.ConfigParser):
         """Atom mass in kg."""
         return self.getfloat("atoms", "mass")
 
+    @property
+    def mot_count(self):
+        """Maximum Fluorescence count of the MOT picture"""
+        return self.getfloat("atoms", "mot_count")
+
     ##### Fit Settings #####
     @property
     def fit_optical_density(self):
