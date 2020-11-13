@@ -17,8 +17,8 @@ def cfg(request):
 @pytest.fixture
 def shot():
     """Create shot object."""
-    path = "./tests/data/saturated/2019-07-26T162222"
-    bmp_paths = [f"{path}-{i}.bmp" for i in range(1, 4)]
+    path = "./tests/data/saturated/2020-07-20T184314"
+    bmp_paths = [f"{path}-{i}.bmp" for i in range(0, 4)]
     yield shots.Shot(name=path, bmp_paths=bmp_paths)
 
 
@@ -33,9 +33,9 @@ def test_atom_number(cfg, shot):
     """Numerical sanity checks for atom number."""
     # Whole Image
     whole_image = shot.atom_number
-    testing.assert_approx_equal(whole_image / 0.866, 2.22e9, significant=2)
+    testing.assert_approx_equal(whole_image / 0.866, 4.3e7, significant=1)
 
     # Sigma Masked Image
     shot.run_fit(cfg)
     sigma_masked = shot.atom_number
-    testing.assert_approx_equal(sigma_masked, 2.22e9, significant=2)
+    testing.assert_approx_equal(sigma_masked, 2.3e7, significant=1)
