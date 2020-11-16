@@ -86,6 +86,14 @@ class Config(configparser.ConfigParser):
         """Maximum Fluorescence count of the MOT picture"""
         return self.getfloat("atoms", "mot_count")
 
+    @property
+    def mot_roi(self):
+        """Tuple of (x0, y0, x1, y1) ROI used for MOT count integration"""
+        try:
+            return tuple(map(int, self.get("atoms", "mot_roi").split(",")))
+        except (ValueError, configparser.NoOptionError):
+            return None
+
     ##### Fit Settings #####
     @property
     def fit_optical_density(self):

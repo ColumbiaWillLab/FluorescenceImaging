@@ -89,7 +89,8 @@ class Shot:
     @cachedproperty
     def mot_fluorescence(self):
         """Returns the summed pixel counts in the MOT picture normalized to a fixed value config.mot_count"""
-        shotcount = np.sum(self.mot)
+        x0, y0, x1, y1 = config.mot_roi
+        shotcount = np.sum(self.mot[x0:x1, y0:y1])
         return shotcount/config.mot_count
 
     @property
